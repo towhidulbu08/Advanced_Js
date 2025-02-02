@@ -1,7 +1,12 @@
-let symbol1 = Symbol("I am Symbol One"); //symbol with description
-let symbol2 = Symbol("I am Symbol Two");
+let includes = Symbol("my own array includes method");
 
-let title = "Tamim";
-console.log(title);
-console.log(symbol1);
-console.log(symbol2);
+Array.prototype[includes] = () => {
+  console.log("This is My array includes function");
+};
+
+let myArray = [1, 2, 3];
+
+console.log(myArray["includes"](2));
+console.log(myArray[includes](2));
+
+// Object.keys() => return an array of keys of that object
