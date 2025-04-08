@@ -1,66 +1,27 @@
-// function* generator() {
-//   yield 1;
-//   yield 2;
-//   return "I am done!";
-//   yield 3;
-//   yield 4;
-// }
-
-// let iterator = generator();
-// console.log(iterator.next());
-// console.log(iterator.next());
-// console.log(iterator.next());
-// console.log(iterator.next());
-// console.log(iterator.next());
-
-// As Generator Functions
-
-function* myGenerator1() {}
-
-//or..
-
-function* myGenerator2() {}
-
-//or..
-function* myGenerator3() {}
-
-//As Generator methods
-
-const Generator = function* () {};
-
-//NOTE:Generator arrow functions are not allowed
-const myGenerator = () => {};
-
-//Inside Class
-class MyClass {
-  *myGenerator() {}
-}
-
-//Inside Object Literal
-const myObject = {
-  *myGenerator() {},
-};
-
-// let obj = {
-//   value1: 1,
-//   value2: 2,
-//   value3: 3,
-//   value4: 4,
-// };
-
-// function* generator() {
-//   const entries = Object.entries(obj);
-
-//   for (let element of entries) {
-//     yield element[1];
+// function* range(start, end, step) {
+//   let current = start;
+//   while (current <= end) {
+//     yield current;
+//     console.log("did you execute?");
+//     current += step;
 //   }
 // }
 
-// const iterator = generator(obj);
+// const iterator = range(1, 10, 2);
+// console.log(iterator.next());
+// console.log(iterator.next());
+// console.log(iterator.next());
 
-// for (let value of iterator) {
-//   console.log(value);
-// }
-//NOTE:Generators are special types of iterator
+function* generator(a, b) {
+  let k = yield a + b;
 
-//console.log([...iterator]);
+  let m = yield a + b + k;
+
+  yield a + b + k + m;
+}
+
+var genObj = generator(10, 20);
+
+console.log(genObj.next());
+console.log(genObj.next(20));
+// console.log(genObj.next(20));
