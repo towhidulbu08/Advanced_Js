@@ -1,27 +1,43 @@
-// function* range(start, end, step) {
-//   let current = start;
-//   while (current <= end) {
-//     yield current;
-//     console.log("did you execute?");
-//     current += step;
-//   }
-// }
+const takeOrder = (customer) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(`order taken from ${customer}`);
+    }, 2000);
+  });
+};
 
-// const iterator = range(1, 10, 2);
-// console.log(iterator.next());
-// console.log(iterator.next());
-// console.log(iterator.next());
+const processOrder = (customer) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(`order processed for ${customer}`);
+    }, 2000);
+  });
+};
 
-function* generator(a, b) {
-  let k = yield a + b;
+const completeOrder = (customer) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(`order completed for ${customer}`);
+    }, 2000);
+  });
+};
 
-  let m = yield a + b + k;
-
-  yield a + b + k + m;
+async function* orderGenerator(customer) {
+  yield await takeOrder(customer);
+  yield await processOrder(customer);
+  yield await completeOrder(customer);
 }
 
-var genObj = generator(10, 20);
+const genObj = orderGenerator("John Doe");
+// genObj.next().then(({ value }) => console.log(value));
+// genObj.next().then(({ value }) => console.log(value));
 
-console.log(genObj.next());
-console.log(genObj.next(20));
-// console.log(genObj.next(20));
+// genObj.next().then(({ value }) => console.log(value));
+
+const promises = [genObj.next(), genObj.next(), genObj.next()];
+
+(async function () {
+  for await (let p of promises) {
+    console.log(p);
+  }
+})();
